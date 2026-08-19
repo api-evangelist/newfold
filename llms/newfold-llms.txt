@@ -1,0 +1,83 @@
+# Newfold Labs Standards
+
+> How we build software at Newfold Labs on WordPress and WordPress-adjacent
+> codebases. Standards are filed by scope: general ones hold everywhere,
+> platform ones bind a technology, artifact ones bind a kind of thing we ship,
+> and process covers how we work together. Every document has a stable id;
+> cite it when answering "how do we do X".
+
+Each entry below is `[title](url): summary`, followed by the document id, the
+artifact types it applies to, and whether conformance is machine-checkable.
+
+## General
+
+Standards that hold regardless of platform or artifact type.
+
+- [Introduction](https://newfold-labs.github.io/standards/general/introduction.html): Who we are, why these standards exist, and how they are organised (id: general-introduction; applies_to: any; enforceable: false)
+- [Philosophy](https://newfold-labs.github.io/standards/general/philosophy.html): How we approach software engineering, and the values behind the rules (id: general-philosophy; applies_to: any; enforceable: false)
+- [Naming](https://newfold-labs.github.io/standards/general/naming.html): General naming principles that apply before any language or platform convention (id: general-naming; applies_to: any; enforceable: false)
+- [Naming projects](https://newfold-labs.github.io/standards/general/naming-projects.html): The platform-type-name convention for repositories, Composer packages and npm packages (id: general-naming-projects; applies_to: any; enforceable: true)
+- [Naming files and directories](https://newfold-labs.github.io/standards/general/naming-files-directories.html): Directory and filename conventions, and where they bend to a framework's expectations (id: general-naming-files-directories; applies_to: any; enforceable: true)
+- [Naming code](https://newfold-labs.github.io/standards/general/naming-code.html): How to name variables, keys and identifiers so related names group and grow predictably (id: general-naming-code; applies_to: any; enforceable: false)
+- [Naming in global namespaces](https://newfold-labs.github.io/standards/general/naming-global-namespaces.html): Defensive prefixing for names that land in a namespace we do not control (id: general-naming-global-namespaces; applies_to: any; enforceable: true)
+- [Frontend best practices](https://newfold-labs.github.io/standards/general/frontend.html): Markup, runtime and payload expectations for anything a visitor's browser loads (id: general-frontend; applies_to: any; enforceable: false)
+- [Git and branching](https://newfold-labs.github.io/standards/general/git.html): GitFlow, branch naming, and what CI runs at each stage (id: general-git; applies_to: any; enforceable: true)
+- [Releases and versioning](https://newfold-labs.github.io/standards/general/releases.html): Release cadence, semantic versioning, and the tags each branch type may carry (id: general-releases; applies_to: any; enforceable: true)
+- [Testing](https://newfold-labs.github.io/standards/general/testing.html): The kinds of tests we write, who writes them, and what a good assertion looks like (id: general-testing; applies_to: any; enforceable: true)
+
+## Platform
+
+Standards for a specific technology, applying across everything we build on it.
+
+- [WordPress support matrix](https://newfold-labs.github.io/standards/platform/wordpress/support-matrix.html): The WordPress, PHP and browser versions our products must work on (id: wp-support-matrix; applies_to: plugin, theme, module; enforceable: true)
+- [WordPress PHP](https://newfold-labs.github.io/standards/platform/wordpress/php.html): PHPCS setup, namespacing, bootstrapping and the defensive habits we expect in PHP (id: wp-php; applies_to: plugin, theme, module; enforceable: true)
+- [WordPress JavaScript](https://newfold-labs.github.io/standards/platform/wordpress/javascript.html): How JavaScript in WordPress differs from a standard build, and how to work with it (id: wp-javascript; applies_to: plugin, theme, module; enforceable: true)
+- [WordPress security](https://newfold-labs.github.io/standards/platform/wordpress/security.html): Authentication, nonces, escaping, sanitization and safe database access (id: wp-security; applies_to: plugin, theme, module; enforceable: true)
+- [WordPress assets](https://newfold-labs.github.io/standards/platform/wordpress/assets.html): Registering and enqueuing scripts and styles so other codebases can override them (id: wp-assets; applies_to: plugin, theme, module; enforceable: true)
+- [WordPress hooks](https://newfold-labs.github.io/standards/platform/wordpress/hooks.html): When to add custom actions and filters, and how to pick arguments and priorities (id: wp-hooks; applies_to: plugin, theme, module; enforceable: true)
+- [Hook naming](https://newfold-labs.github.io/standards/platform/wordpress/hooks-naming.html): The newfold/context/type/name convention for custom action and filter hooks (id: wp-hooks-naming; applies_to: plugin, theme, module; enforceable: true)
+- [WordPress interfaces](https://newfold-labs.github.io/standards/platform/wordpress/interfaces.html): Building admin UI that coexists with core, other plugins and every color scheme (id: wp-interfaces; applies_to: plugin, theme, module; enforceable: false)
+- [WordPress performance](https://newfold-labs.github.io/standards/platform/wordpress/performance.html): Query, option, cron and caching habits that matter at our install count (id: wp-performance; applies_to: plugin, theme, module; enforceable: true)
+- [Internationalization](https://newfold-labs.github.io/standards/platform/wordpress/i18n.html): Making every user-facing string translatable, and the files that carry the translations (id: wp-i18n; applies_to: plugin, theme, module; enforceable: true)
+- [WP-CLI](https://newfold-labs.github.io/standards/platform/wordpress/wp-cli.html): Running WP-CLI commands safely against installations we do not own (id: wp-cli; applies_to: plugin, module; enforceable: false)
+- [Tools and services](https://newfold-labs.github.io/standards/platform/wordpress/tools-services.html): Recommended development plugins and local environments, none of them required (id: wp-tools-services; applies_to: plugin, theme, module; enforceable: false)
+
+## Artifacts
+
+Standards for a specific kind of thing we ship.
+
+- [Cloudflare Workers](https://newfold-labs.github.io/standards/artifacts/worker/cloudflare-workers.html): KV, Workers AI and the Vitest setup we use for edge workers (id: worker-cloudflare; applies_to: worker; enforceable: false)
+- [Plugin structure](https://newfold-labs.github.io/standards/artifacts/plugin/structure.html): How a brand plugin is laid out, and why distribution files decide the layout (id: plugin-structure; applies_to: plugin; enforceable: true)
+- [Module structure](https://newfold-labs.github.io/standards/artifacts/module/structure.html): The directory layout every module shares, and what ends up in the distributed zip (id: module-structure; applies_to: module; enforceable: true)
+- [Theme structure](https://newfold-labs.github.io/standards/artifacts/theme/structure.html): Placeholder for theme standards, which have never been written down (id: theme-structure; applies_to: theme; enforceable: false)
+- [Module development](https://newfold-labs.github.io/standards/artifacts/module/development.html): What module owners are responsible for, and the flow from feature branch to plugin PR (id: module-development; applies_to: module; enforceable: false)
+- [Module testing](https://newfold-labs.github.io/standards/artifacts/module/testing.html): Cypress conventions that let a module's tests run from any brand plugin (id: module-testing; applies_to: module; enforceable: true)
+
+## Process
+
+How we work together. Judgement and coordination, not lintable rules.
+
+- [Code review and release restrictions](https://newfold-labs.github.io/standards/process/code-review.html): Who reviews what, who is allowed to release, and the bar a PR must clear to merge (id: process-code-review; applies_to: any; enforceable: false)
+- [Release runbook](https://newfold-labs.github.io/standards/process/release-runbook.html): The step by step a release lead follows, from Jira planning to posting in Teams (id: process-release-runbook; applies_to: plugin, module; enforceable: false)
+- [Architectural review](https://newfold-labs.github.io/standards/process/architectural-review.html): What an architectural review covers and what to prepare before requesting one (id: process-architectural-review; applies_to: any; enforceable: false)
+- [Organization teams](https://newfold-labs.github.io/standards/process/org-teams.html): How repository access is granted through GitHub teams rather than individuals (id: process-org-teams; applies_to: any; enforceable: false)
+- [Token management](https://newfold-labs.github.io/standards/process/tokens.html): Setting up a personal access token for private packages, and why runners never get one from the repo (id: process-tokens; applies_to: any; enforceable: false)
+- [Crowdin translation workflow](https://newfold-labs.github.io/standards/process/translations-crowdin.html): Uploading source strings to Crowdin and getting translations back as a pull request (id: process-translations-crowdin; applies_to: plugin, module; enforceable: false)
+- [AI translation workflow](https://newfold-labs.github.io/standards/process/translations-ai.html): Automating po and json translation through Azure AI Translator and a central workflow (id: process-translations-ai; applies_to: plugin, module; enforceable: false)
+
+## Meta
+
+How this repository itself works.
+
+- [Front matter schema](https://newfold-labs.github.io/standards/meta/frontmatter-schema.html): Every field a standards document carries, what it means, and what CI checks (id: meta-frontmatter-schema; applies_to: any; enforceable: true)
+- [Contributing and the RFC process](https://newfold-labs.github.io/standards/meta/contributing.html): How to fix a typo, propose a new standard, and resolve disagreement without stalling (id: meta-contributing; applies_to: any; enforceable: false)
+- [Standard lifecycle](https://newfold-labs.github.io/standards/meta/lifecycle.html): What draft, active, deprecated and superseded mean, and why nothing is ever deleted (id: meta-lifecycle; applies_to: any; enforceable: false)
+- [Versioning this repository](https://newfold-labs.github.io/standards/meta/versioning.html): What a major, minor and patch release of the standards themselves mean (id: meta-versioning; applies_to: any; enforceable: false)
+- [Rule definitions](https://newfold-labs.github.io/standards/meta/rules-format.html): The shape of the machine-readable rules that connect a standard to a check (id: meta-rules-format; applies_to: any; enforceable: false)
+- [Migration map from how-we-work](https://newfold-labs.github.io/standards/meta/migration-map.html): Where every page of the old repository ended up, and what changed on the way (id: meta-migration-map; applies_to: any; enforceable: false)
+- [Resources](https://newfold-labs.github.io/standards/meta/resources.html): Standards guides, WordPress handbooks and references we lean on (id: meta-resources; applies_to: any; enforceable: false)
+
+## Optional
+
+- [Front matter schema](https://newfold-labs.github.io/standards/schema/frontmatter.schema.json): JSON Schema every document's metadata validates against
+- [Repository](https://github.com/newfold-labs/standards): source, contribution process and RFC template

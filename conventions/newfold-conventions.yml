@@ -1,0 +1,90 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/newfold-labs/wp-module-mcp/blob/main/README.md
+also: https://github.com/newfold-labs/wp-module-mcp/blob/main/docs/api.md
+scope: 'Cross-cutting runtime semantics of the Newfold BLU MCP surface. Newfold publishes
+  no REST developer API of its own, so these conventions are the MCP transport''s,
+  as the provider documents them.'
+auth_style: 'Bearer JWT or WordPress session capability server-side; OAuth 2.1 + PKCE,
+  JWT, application password, WooCommerce keys or custom headers client-side. See authentication/newfold-authentication.yml.'
+transport:
+  protocol: JSON-RPC 2.0 over HTTP POST
+  envelope_request: '{ "jsonrpc": "2.0", "id": <int|string>, "method": "<method>",
+    "params": {...} }'
+  envelope_response: '{ "jsonrpc": "2.0", "id": <int|string>, "result": {...} }'
+  batching: supported (array of messages, per JSON-RPC 2.0)
+  methods_supported: [POST (messages), DELETE (session termination)]
+  methods_unimplemented: [GET (SSE) — returns 405]
+session:
+  header: Mcp-Session-Id
+  establish: POST initialize (server returns the header) then POST notifications/initialized
+    carrying it
+  reuse: same session id on every subsequent request; no re-initialize per call
+  ttl: 24 hours of inactivity
+  max_per_user: 32
+  recovery: on "Invalid or expired session", re-run initialize + notifications/initialized
+idempotency:
+  supported: false
+  note: 'No idempotency key, no retry-safety contract, and no de-duplication semantics
+    are documented anywhere in the module. Write abilities (add-post, upload-media,
+    wc-add-product) are plain calls. Recorded as a genuine absence — no Idempotency
+    pointer is emitted.'
+pagination:
+  style: parameter-based, inherited from the underlying WordPress REST collections
+  params: [per_page, search]
+  note: 'Ability-level. blu-posts-search and blu-pages-search document per_page and
+    search in their input schemas; the module does not define a pagination envelope
+    of its own.'
+filtering:
+  blu-list-abilities: [search (name + label + description substring), name_prefix (hyphen-form
+      prefix, slash form normalized)]
+  blu-list-api-functions: [namespace (exact, single or multi-segment), methods (array
+      of GET/POST/PATCH/DELETE, max 4), search (route path substring only)]
+  composition: filters are AND-composed; omitting them returns the full catalog
+  guidance: 'Newfold documents an explicit token-economy rule — the model''s first
+    call into either list tool should almost always carry at least one filter, because
+    an unfiltered call is "a tax you don''t need to pay".'
+response_shape:
+  tools_call: 'result.content[0].text carries the result as a JSON string; result.structuredContent
+    carries the same result parsed and is the preferred read. Image results use content[0].type
+    = "image" with base64 data + mimeType.'
+  ability_wrapper: '{ "statusCode": <int>, "status": "success"|"error", "message":
+    <array|object|string> }'
+  ability_wrapper_note: statusCode is HTTP-style (200/400/404/500) even though the
+    HTTP response itself is 200; clients must read the wrapper, not the transport status.
+error_envelope:
+  protocol_errors: 'JSON-RPC error object — { "error": { "code": -32602, "message":
+    "..." } }'
+  tool_errors: 'MCP isError form — result.content[] plus "isError": true'
+  discipline: clients must distinguish the two; a permission denial arrives as a successful
+    JSON-RPC response with isError set. See errors/newfold-problem-types.yml.
+schema_strictness:
+  additional_properties: false on both discovery tool input schemas — unknown fields
+    are rejected at validation time
+  output_schemas: deliberately omitted from tools/list to keep the payload small; response
+    shapes are documented in prose and declared stable
+tool_naming:
+  rule: an ability registered as blu/<something> is exposed as MCP tool name blu-<something>
+    (slash replaced with hyphen)
+  normalization: slash form is accepted and normalized in name_prefix filters; trailing
+    hyphens are trimmed
+  client_rule: never hardcode gateway tool names — identify the three gateway roles
+    by inputSchema shape
+versioning:
+  api: 'No API version in the route. The MCP route is /wp-json/blu/mcp with no version
+    segment; the capability surface moves with the installed module version.'
+  packages: semantic versioning, per the Newfold Labs "Releases and versioning" standard
+    (id general-releases, enforceable)
+rate_limit_signal:
+  documented: false
+  note: No rate-limit headers, quotas or 429 semantics are documented. See rate-limits/newfold-rate-limits.yml.
+tracing:
+  request_id: not documented
+  logging: 'Client-side only — the connector exposes LOG_LEVEL 0-3, LOG_FILE for structured
+    logs and LOG_TO_STDERR.'
+cross_links:
+  authentication: authentication/newfold-authentication.yml
+  errors: errors/newfold-problem-types.yml
+  lifecycle: lifecycle/newfold-lifecycle.yml
+  rate_limits: rate-limits/newfold-rate-limits.yml
+  mcp: mcp/newfold-mcp.yml

@@ -1,0 +1,50 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.npmjs.com/package/@newfold/ui-component-library
+note: Client-side UI component surfaces Newfold publishes. These are React libraries
+  consumed by the brand plugins' WordPress admin experiences, not hosted/embeddable
+  widgets for third-party sites, and Newfold documents no CDN distribution for them.
+families:
+- family: ui-component-library
+  name: '@newfold/ui-component-library'
+  description: React component library by Newfold Digital, used to build the brand
+    plugin admin interfaces.
+  registry: npm
+  url: https://www.npmjs.com/package/@newfold/ui-component-library
+  repository: https://github.com/newfold-labs/npm-ui-component-library
+  version: 2.1.1
+  published: '2025-09-29'
+  distribution: npm only — no pinned CDN build, no script tag, no unpkg/jsDelivr URL
+    documented
+  official: true
+- family: design-tokens
+  name: '@newfold/tokens'
+  description: Design tokens backing the component library.
+  registry: npm
+  url: https://www.npmjs.com/package/@newfold/tokens
+  version: 1.4.6-alpha.1
+  published: '2024-10-16'
+  official: true
+  note: Latest published release is a 2024 alpha; the tokens package trails the component
+    library it feeds.
+- family: micro-frontend
+  name: '@newfold/mfe-provider'
+  description: '<MFEProvider /> React library for the Jarvis micro-frontend platform.'
+  registry: npm
+  url: https://www.npmjs.com/package/@newfold/mfe-provider
+  version: 0.2.6
+  published: '2022-06-23'
+  official: true
+  note: Dormant since 2022.
+- family: ai-chat
+  name: '@newfold/wp-module-ai-chat'
+  description: Reusable AI Chat core shipped as a module for WordPress admin surfaces.
+  registry: npm
+  url: https://www.npmjs.com/package/@newfold/wp-module-ai-chat
+  version: 1.1.8
+  published: '2026-07-28'
+  official: true
+loaders: []
+loaders_note: No loader script or embed snippet is published; every component family
+  is consumed through a bundler.
+component_families: 4

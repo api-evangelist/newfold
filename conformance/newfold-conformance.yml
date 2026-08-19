@@ -1,0 +1,109 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/newfold-labs/wp-module-mcp + https://www.npmjs.com/package/@newfold/wp-mcp-connector
+  + https://newfold.com/privacy-center/information-security-policy
+note: Every entry records what Newfold itself states in its own source, package README
+  or published policy. Nothing is inferred from an OpenAPI, because none is published.
+standards:
+- id: mcp
+  name: Model Context Protocol
+  version: '2025-06-18'
+  conforms: true
+  partial: true
+  evidence: 'wp-module-mcp registers a server through wordpress/mcp-adapter and documents
+    the 2025-06-18 protocol version in its initialize example. Session handling, tools/list,
+    tools/call, structuredContent and isError all follow the spec.'
+  deviations:
+  - GET (SSE streaming) returns HTTP 405 — not implemented, acknowledged in the provider's
+    own README.
+  source: https://github.com/newfold-labs/wp-module-mcp/blob/main/README.md
+- id: json-rpc-2.0
+  name: JSON-RPC 2.0
+  conforms: true
+  evidence: Request/response/error envelopes and batch arrays are documented verbatim
+    against the JSON-RPC 2.0 shapes; -32602 is used for invalid params.
+- id: oauth2.1
+  name: OAuth 2.1 (authorization code + PKCE)
+  conforms: true
+  evidence: '@newfold/wp-mcp-connector implements the authorization-code flow with
+    PKCE (S256) always on; an implicit flow is retained only as a legacy option for
+    older sites.'
+  source: https://www.npmjs.com/package/@newfold/wp-mcp-connector
+- id: rfc7636
+  name: PKCE
+  conforms: true
+  evidence: S256 challenge method, always enabled for authorization_code.
+- id: rfc9728
+  name: OAuth 2.0 Protected Resource Metadata
+  conforms: true
+  conforms_as: client
+  evidence: The connector discovers protected-resource metadata first, before falling
+    back to RFC 8414.
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  conforms_as: client
+  evidence: Documented fallback discovery path, then an unauthenticated probe of the
+    WWW-Authenticate header.
+- id: rfc7591
+  name: OAuth 2.0 Dynamic Client Registration
+  conforms: true
+  conforms_as: client
+  evidence: Runs automatically when no WP_OAUTH_CLIENT_ID is supplied and the authorization
+    server advertises a registration endpoint.
+- id: rfc8707
+  name: Resource Indicators for OAuth 2.0
+  conforms: true
+  conforms_as: client
+  evidence: Resource indicators are included in authorization and token requests unless
+    OAUTH_RESOURCE_INDICATOR=false.
+- id: rfc7519
+  name: JSON Web Token
+  conforms: true
+  evidence: Bearer JWT verified with firebase/php-jwt using RS256 and public keys from
+    the Hiive CDN (includes/Validation/McpValidation.php).
+- id: json-schema
+  name: JSON Schema
+  conforms: true
+  evidence: 'Tool inputSchemas are JSON Schema objects with additionalProperties: false;
+    the Newfold Labs standards site publishes a 2020-12 schema for its document front
+    matter at schema/frontmatter.schema.json.'
+  artifact: json-schema/newfold-standards-frontmatter.schema.json
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: Errors use JSON-RPC error objects and the MCP isError form; no application/problem+json
+    anywhere.
+- id: pci-dss
+  name: Payment Card Industry Data Security Standard
+  conforms: true
+  scope: corporate
+  evidence: '"As part of Newfold''s compliance with the Payment Card Industry – Data
+    Security Standard, regular security reviews are conducted on an ongoing basis."
+    — Newfold Information Security Policy.'
+  source: https://newfold.com/privacy-center/information-security-policy
+  note: The only certification or framework Newfold names publicly. No SOC 2, ISO 27001,
+    HIPAA or FedRAMP claim was found, and no trust center exists.
+- id: semver
+  name: Semantic Versioning
+  conforms: true
+  scope: packages
+  evidence: 'The Newfold Labs standards site publishes "Releases and versioning" (id
+    general-releases) as an enforceable standard covering release cadence, semantic
+    versioning and which tags each branch type may carry.'
+  source: https://newfold-labs.github.io/standards/general/releases.html
+- id: rfc9116
+  name: security.txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on hiive.cloud and is unreachable
+    behind the Cloudflare challenge on newfold.com. Newfold publishes its disclosure
+    policy as an HTML page instead.
+  source: well-known/newfold-well-known.yml
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  partial: true
+  evidence: 'An OpenAPI exists internally — @newfold/huapi-js is generated from an
+    openapi.json by Orval — but Newfold''s own package README states the spec is pulled
+    from a beta server that requires the corporate VPN. Nothing is published externally.'
+  source: https://www.npmjs.com/package/@newfold/huapi-js

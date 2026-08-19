@@ -1,0 +1,72 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/newfold-labs/wp-module-mcp/releases
+note: 'Newfold publishes no consolidated product changelog for a developer surface.
+  The dated change record that exists is per-repository GitHub Releases in the Newfold
+  Labs org, plus a docs/changelog.md in the MCP module that is currently thin (an Unreleased
+  section only). Entries below are the recent window, read from the GitHub Releases
+  API on 2026-08-13.'
+scheme: semver
+channels:
+- name: wp-module-mcp releases
+  url: https://github.com/newfold-labs/wp-module-mcp/releases
+  current_version: 1.7.10
+  current_date: '2026-08-13'
+- name: wp-plugin-bluehost releases
+  url: https://github.com/newfold-labs/wp-plugin-bluehost/releases
+  current_version: 4.18.2
+  current_date: '2026-08-13'
+- name: wp-module-mcp docs changelog
+  url: https://github.com/newfold-labs/wp-module-mcp/blob/main/docs/changelog.md
+  note: 'Keep-a-Changelog shaped but effectively empty — one Unreleased entry (added
+    AGENTS.md, CLAUDE.md symlink and docs/ per the Newfold module documentation standard).
+    The file instructs maintainers to add "## [x.y.z] - YYYY-MM-DD" sections at tag
+    time; that has not been happening.'
+entries:
+- component: wp-module-mcp
+  version: 1.7.10
+  date: '2026-08-13'
+- component: wp-module-mcp
+  version: 1.7.9
+  date: '2026-08-12'
+- component: wp-module-mcp
+  version: 1.7.8
+  date: '2026-08-10'
+- component: wp-module-mcp
+  version: 1.7.7
+  date: '2026-07-28'
+- component: wp-module-mcp
+  version: 1.7.6
+  date: '2026-07-28'
+- component: wp-module-mcp
+  version: 1.7.5
+  date: '2026-07-21'
+- component: wp-module-mcp
+  version: 1.7.4
+  date: '2026-07-10'
+- component: wp-module-mcp
+  version: 1.7.3
+  date: '2026-06-29'
+- component: wp-plugin-bluehost
+  version: 4.18.2
+  date: '2026-08-13'
+- component: wp-plugin-bluehost
+  version: 4.18.1
+  date: '2026-08-11'
+- component: wp-plugin-bluehost
+  version: 4.18.0
+  date: '2026-07-29'
+- component: wp-plugin-bluehost
+  version: 4.17.3
+  date: '2026-07-24'
+- component: wp-plugin-bluehost
+  version: 4.17.2
+  date: '2026-07-16'
+- component: wp-plugin-bluehost
+  version: 4.17.1
+  date: '2026-06-24'
+gaps:
+- Release titles are bare version numbers; the releases carry no summarized highlights,
+  so breaking-vs-additive cannot be read from the changelog without diffing tags.
+- No single changelog covers the MCP tool surface, which is what an agent integrator
+  would actually need to watch.

@@ -1,0 +1,138 @@
+generated: '2026-08-13'
+method: searched
+status: published
+source: https://github.com/newfold-labs/wp-module-mcp
+name: Newfold BLU MCP Server
+server_id: blu-mcp
+description: 'Newfold Labs ships an MCP server as a WordPress module (newfold-labs/wp-module-mcp,
+  Composer, GPL-2.0-or-later) that brand plugins — Bluehost and siblings — load into
+  the customer''s own WordPress install. It registers the server through the wordpress/mcp-adapter
+  package on the REST route /wp-json/blu/mcp and exposes WordPress Abilities API abilities
+  as MCP tools. Newfold also publishes a stdio bridge on npm (@newfold/wp-mcp-connector)
+  so desktop MCP clients can reach that HTTP endpoint.'
+deployment:
+  mode: both
+  endpoint: https://{site}/wp-json/blu/mcp
+  endpoint_note: 'Self-hosted, not vendor-hosted. The endpoint lives on each customer''s
+    WordPress domain because the server ships inside the brand plugin; Newfold publishes
+    no central MCP URL. The provider''s own README writes it as https://YOUR-SITE.com/wp-json/blu/mcp.'
+  install: npx -y @newfold/wp-mcp-connector
+  package: https://www.npmjs.com/package/@newfold/wp-mcp-connector
+  auth: oauth
+  auth_detail: 'Resolution order in the connector: JWT (JWT_TOKEN) → OAuth 2.1 with
+    PKCE (OAUTH_ENABLED=true) → WordPress application password (basic) → custom headers
+    only. Server-side, the transport permission callback allows a logged-in user with
+    manage_options, otherwise it requires a Bearer JWT verified with RS256 against
+    public keys served from the Hiive CDN.'
+  verified: searched
+  verified_note: 'Establishing the endpoint by probe is not possible and would be meaningless:
+    there is no Newfold-hosted instance to POST tools/list at, and probing an arbitrary
+    customer WordPress site is out of scope. Verified instead from first-party source
+    and docs — includes/McpServer.php, docs/api.md, README.md, and the published npm
+    connector.'
+protocol:
+  spec: MCP 2025-06-18
+  transport: Streamable HTTP (JSON-RPC 2.0 over POST)
+  session: 'POST initialize returns an Mcp-Session-Id response header; the client then
+    POSTs notifications/initialized and carries Mcp-Session-Id on every later request.
+    Sessions expire after 24h of inactivity, max 32 per user.'
+  sse: 'Not implemented. GET on the route returns HTTP 405; the module documents this
+    as a known deviation from the 2025-06-18 spec.'
+  batch: supported (JSON-RPC 2.0 arrays)
+tool_model:
+  pattern: gateway
+  note: 'The server registers exactly 3 gateway tools instead of ~83 individual tools,
+    which the provider states cuts upfront tool-schema tokens by ~96%. Abilities are
+    discovered and invoked through the gateway; they are NOT valid tools/call names
+    themselves. Legacy mode (all tools exposed directly) is available behind the blu_mcp_use_gateway
+    filter.'
+  client_warning: 'Newfold explicitly tells clients not to hardcode the gateway tool
+    names — identify the three roles by inputSchema shape from tools/list.'
+tools:
+- name: blu-list-abilities
+  role: list
+  description: List/search the available abilities.
+  input_schema:
+    search: string — case-insensitive substring match over name, label and description
+    name_prefix: string — prefix match on the hyphen-form tool name
+  additional_properties: false
+- name: blu-get-ability-schema
+  role: schema
+  description: Return an ability's input schema, label, description and annotations.
+  input_schema:
+    ability_name: string (required)
+  additional_properties: false
+- name: blu-call-ability
+  role: call
+  description: Execute an ability by name with parameters.
+  input_schema:
+    ability_name: string (required)
+    parameters: object (optional)
+  additional_properties: false
+abilities:
+  note: 'Reachable through blu-call-ability, not as MCP tool names. Names below are
+    the hyphen form, transcribed from the provider README ability tables on 2026-08-13.
+    The live input schemas require an authenticated session against a running site,
+    so only names and descriptions are recorded here.'
+  namespaces_whitelisted:
+  - blu/
+  - woocommerce/
+  categories_whitelisted:
+  - blu-mcp
+  - woocommerce-rest
+  groups:
+  - group: posts
+    tools: [blu-posts-search, blu-get-post, blu-add-post, blu-update-post, blu-delete-post]
+  - group: post categories
+    tools: [blu-list-categories, blu-add-category, blu-update-category, blu-delete-category]
+  - group: post tags
+    tools: [blu-list-tags, blu-add-tag, blu-update-tag, blu-delete-tag]
+  - group: pages
+    tools: [blu-pages-search, blu-get-page, blu-add-page, blu-update-page, blu-delete-page]
+  - group: media
+    tools: [blu-list-media, blu-get-media, blu-get-media-file, blu-upload-media, blu-update-media,
+      blu-delete-media, blu-search-media]
+  - group: custom post types
+    tools: [blu-list-post-types, blu-cpt-search, blu-get-cpt, blu-add-cpt, blu-update-cpt,
+      blu-delete-cpt]
+  - group: users
+    tools: [blu-users-search, blu-get-user, blu-add-user, blu-update-user, blu-delete-user]
+  - group: settings and site
+    tools: [blu-get-general-settings, blu-update-general-settings, blu-get-site-info]
+  - group: themes and global styles
+    tools: [blu-get-active-theme, blu-get-global-styles, blu-update-global-styles,
+      blu-get-active-global-styles, blu-get-active-global-styles-id]
+  - group: woocommerce products
+    tools: [blu-wc-products-search, blu-wc-get-product, blu-wc-add-product, blu-wc-update-product,
+      blu-wc-delete-product]
+  - group: woocommerce taxonomies
+    tools: [blu-wc-list-product-categories, blu-wc-add-product-category, blu-wc-update-product-category,
+      blu-wc-delete-product-category, blu-wc-list-product-tags, blu-wc-add-product-tag,
+      blu-wc-update-product-tag, blu-wc-delete-product-tag, blu-wc-list-product-brands,
+      blu-wc-add-product-brand, blu-wc-update-product-brand, blu-wc-delete-product-brand]
+  - group: woocommerce orders and reports
+    tools: [blu-wc-orders-search, blu-wc-reports-coupons-totals, blu-wc-reports-customers-totals,
+      blu-wc-reports-orders-totals, blu-wc-reports-products-totals, blu-wc-reports-reviews-totals,
+      blu-wc-reports-sales]
+  - group: generic REST bridge
+    tools: [blu-list-api-functions, blu-get-function-details, blu-run-api-function]
+    note: 'blu-run-api-function executes an arbitrary WordPress REST route by route
+      + method + params. The /blu/mcp transport route itself is excluded from the catalog
+      and rejected if passed directly.'
+guardrails:
+- The MCP transport route is excluded from the REST catalog so the model cannot discover-and-invoke
+  its way back into the transport.
+- Abilities are filtered to whitelisted namespaces/categories (blu/, woocommerce/,
+  blu-mcp, woocommerce-rest), extendable only by a site-side PHP filter.
+- Abilities carry annotations such as readonly, surfaced in the list response.
+- Tool execution errors return MCP isError responses rather than JSON-RPC protocol
+  errors, so a permission denial is distinguishable from a malformed call.
+evidence:
+- url: https://github.com/newfold-labs/wp-module-mcp
+  what: source, README with the full ability catalog and integration requirements
+- url: https://github.com/newfold-labs/wp-module-mcp/blob/main/docs/api.md
+  what: transport route, auth model, discovery filters
+- url: https://www.npmjs.com/package/@newfold/wp-mcp-connector
+  what: stdio connector, v1.0.1 published 2026-05-04
+- url: https://newfold-labs.github.io/satis/p2/newfold-labs/wp-module-mcp.json
+  what: first-party Composer distribution

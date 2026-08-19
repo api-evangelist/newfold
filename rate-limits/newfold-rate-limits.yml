@@ -1,0 +1,35 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/newfold-labs/wp-module-mcp/blob/main/README.md
+limit_count: 0
+limits: []
+headers: []
+note: 'No rate limits are documented on any Newfold API surface. The wp-module-mcp
+  README carries a full "Integration requirements" section covering endpoint, session
+  lifecycle, JSON-RPC envelope, response format and error shapes — and says nothing
+  about quotas, throttling, 429 handling or retry semantics. No X-RateLimit-*, RateLimit-*
+  or Retry-After header is mentioned anywhere in the module docs or in the connector
+  README. The only quantitative limits Newfold publishes for the MCP surface are session
+  limits, not request limits, and they are recorded in conventions/newfold-conventions.yml
+  rather than here.'
+adjacent_limits:
+- name: MCP session TTL
+  value: 24 hours of inactivity
+  kind: session, not rate
+- name: MCP sessions per user
+  value: 32
+  kind: session, not rate
+- name: blu-list-api-functions methods filter
+  value: max 4 unique HTTP methods per call
+  kind: request validation, not rate
+implicit:
+- 'Because the MCP server runs inside the customer''s own WordPress install, any effective
+  request ceiling is that of the customer''s hosting plan and PHP worker pool, not
+  a Newfold-published API quota. An agent gets no runtime signal for it.'
+evidence:
+- url: https://github.com/newfold-labs/wp-module-mcp/blob/main/README.md
+  status: 200
+- url: https://github.com/newfold-labs/wp-module-mcp/blob/main/docs/api.md
+  status: 200
+- url: https://www.npmjs.com/package/@newfold/wp-mcp-connector
+  status: 200

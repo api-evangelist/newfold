@@ -1,0 +1,56 @@
+generated: '2026-08-13'
+method: searched
+source: https://newfold-labs.github.io/standards/general/releases.html
+also: https://github.com/newfold-labs/wp-module-mcp/releases
+versioning:
+  packages:
+    scheme: semver
+    policy: 'Newfold Labs publishes "Releases and versioning" (id general-releases)
+      as an ENFORCEABLE standard on its standards site, covering release cadence, semantic
+      versioning, and which tags each branch type may carry.'
+    branching: GitFlow, per the enforceable "Git and branching" standard (id general-git)
+  api:
+    scheme: none
+    detail: 'The MCP route carries no version segment (/wp-json/blu/mcp). The capability
+      surface moves with the installed module version on each customer site, so a client
+      cannot pin an API version — only a plugin version.'
+  hiive:
+    scheme: path
+    detail: The Hiive platform API versions per resource in the path (sites/v1/events,
+      sites/v2/events). wp-module-data calls both, so v1 and v2 are live simultaneously.
+    source: https://github.com/newfold-labs/wp-module-data/blob/main/includes/HiiveConnection.php
+deprecation:
+  policy_published: false
+  sunset_header: not documented
+  detail: 'No deprecation policy, no RFC 8594 Sunset/Deprecation headers, and no documented
+    removal timeline for abilities or Hiive routes were found. The module documents
+    a "deleting a shipped tool is harder than adding one" design rule but no consumer-facing
+    deprecation contract.'
+  known_deviation: 'One documented removal: blu-list-abilities no longer returns the
+    namespace field, which the provider notes "always equaled ''blu'' and existed only
+    for the now-removed namespace filter".'
+sla:
+  published: false
+  detail: No SLA is published for any Newfold API surface. The MCP server runs on the
+    customer's own hosting, so availability is the customer's, not Newfold's.
+status_page:
+  verified: false
+  probed:
+  - url: https://status.bluehost.com/
+    status: 403
+    note: Cloudflare interactive challenge to both plain HTTP and a JS-capable fetch;
+      could not confirm the page is a status page, so no StatusPage pointer is emitted.
+  - url: https://status.hostgator.com/
+    status: 403
+  - url: https://newfoldstatus.com/
+    status: 000
+    note: DNS/connection failure.
+release_cadence:
+  wp-module-mcp: '8 releases between 2026-06-29 and 2026-08-13 (1.7.3 through 1.7.10)
+    — roughly weekly.'
+  wp-plugin-bluehost: 6 releases between 2026-06-24 and 2026-08-13 (4.17.1 through
+    4.18.2).
+  '@newfold/huapi-js': 389 published npm versions, latest 2.2038.0 on 2026-08-13.
+deprecated_operations: []
+deprecated_operations_note: No OpenAPI to derive deprecations from, and no deprecation
+  markers in the published ability tables.

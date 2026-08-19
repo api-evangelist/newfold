@@ -1,0 +1,73 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/newfold-labs/wp-module-mcp/blob/main/README.md
+format: json-rpc-2.0 + mcp-isError
+note: 'Not RFC 9457. Newfold publishes no OpenAPI, so nothing here is derived from
+  4xx/5xx response objects; every shape below is documented by the provider in the
+  wp-module-mcp README section "Integration requirements".'
+envelopes:
+- id: protocol-error
+  shape: '{ "jsonrpc": "2.0", "id": <id>, "error": { "code": <int>, "message": "<string>"
+    } }'
+  when: 'Malformed request, unknown tool, invalid params — failures of the JSON-RPC
+    layer itself.'
+  example_code: -32602
+  example_message: 'Tool not found: foo'
+- id: tool-execution-error
+  shape: '{ "jsonrpc": "2.0", "id": <id>, "result": { "content": [{ "type": "text",
+    "text": "<message>" }], "isError": true } }'
+  when: 'The call was well-formed but the ability failed — permission denied, ability
+    error. Arrives as a SUCCESSFUL JSON-RPC response; clients that only check for an
+    error member will silently treat a failure as a success.'
+  example_message: 'Access denied for tool: blu-call-ability'
+- id: ability-wrapper-error
+  shape: '{ "statusCode": <int>, "status": "error", "message": "<string>" }'
+  when: Inside result.structuredContent. Gateway abilities wrap their own result and
+    carry an HTTP-style statusCode even though the transport returned 200.
+  status_codes: [200, 400, 404, 500]
+problem_types:
+- id: tool-not-found
+  envelope: protocol-error
+  code: -32602
+  title: Tool not found
+  remediation: 'Call tools/list and use one of the three gateway tool names returned;
+    ability names are never valid tools/call names.'
+- id: access-denied
+  envelope: tool-execution-error
+  title: Access denied for tool
+  cause: The authenticated principal lacks the capability the ability requires, or
+    the transport permission callback rejected the credential.
+  remediation: 'Authenticate as a user with manage_options, or present a valid Hiive-issued
+    Bearer JWT.'
+- id: invalid-or-expired-session
+  envelope: tool-execution-error
+  title: Invalid or expired session
+  cause: Mcp-Session-Id missing, expired (24h inactivity) or evicted (max 32 sessions
+    per user).
+  remediation: Re-run initialize, then notifications/initialized, and carry the new
+    Mcp-Session-Id.
+- id: transport-route-rejected
+  envelope: tool-execution-error
+  title: MCP transport route rejected
+  cause: blu-run-api-function was passed the /blu/mcp route itself.
+  remediation: The transport route is excluded from the catalog by design; call the
+    intended REST route instead.
+- id: unknown-input-field
+  envelope: protocol-error
+  title: Unknown field rejected at validation
+  cause: 'Both discovery tools set additionalProperties: false, so an unexpected argument
+    fails schema validation rather than being ignored.'
+  remediation: Send only the documented filter fields.
+- id: sse-not-implemented
+  envelope: http
+  http_status: 405
+  title: SSE not implemented
+  cause: GET on /wp-json/blu/mcp. The MCP 2025-06-18 spec defines GET for SSE streaming;
+    this server does not implement it.
+  remediation: Use POST for messages; clients should still be prepared for SSE in a
+    future version.
+gaps:
+- No numbered error registry is published — Newfold documents shapes and a handful
+  of messages, not a code catalog.
+- The ability-level statusCode values are documented as a range (200/400/404/500) rather
+  than per-ability.

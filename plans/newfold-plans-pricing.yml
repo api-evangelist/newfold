@@ -1,0 +1,26 @@
+generated: '2026-08-13'
+method: searched
+source: https://newfold.com/
+plan_count: 0
+plans: []
+note: 'Newfold Digital publishes no developer plans, no API pricing and no self-service
+  API sign-up at the holding-company level. newfold.com is an investor and corporate
+  presence — its navigation is Brands, Leadership, Careers, Newsroom, Contact, Values,
+  with no developer or pricing section — and the API surfaces this profile records
+  are not sold as products: the MCP server ships inside the WordPress brand plugins
+  at no separate charge to the hosting customer, the Hiive platform API is a first-party
+  site-connection API with no public onboarding, and HUAPI is an internal control plane.
+  Consumer hosting and domain pricing exists only on the individual brand sites (bluehost.com,
+  hostgator.com, networksolutions.com, web.com, domain.com, register.com), each of
+  which is fronted by a Cloudflare interactive challenge and each of which is a separate
+  catalog entry where applicable. An honest zero, not an unchecked field.'
+evidence:
+- url: https://newfold.com/
+  status: 200
+  what: Corporate homepage navigation, read through a JS-capable fetch. No pricing,
+    plans or developer section.
+- url: https://newfold.com/llms.txt
+  status: 404
+- url: https://github.com/newfold-labs/wp-module-mcp
+  status: 200
+  what: MCP module is GPL-2.0-or-later and distributed free via Composer/Satis.

@@ -1,0 +1,214 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.npmjs.com/org/newfold + https://newfold-labs.github.io/satis/ + https://github.com/newfold-labs
+note: 'Newfold Digital ships its client libraries under the Newfold Labs engineering
+  org. Two distribution channels are in play: public npm under the @newfold scope,
+  and a first-party Composer (Satis) registry at https://newfold-labs.github.io/satis/
+  carrying 56 newfold-labs/* PHP packages that are NOT on Packagist. Versions and
+  dates below were read from registry.npmjs.org and the Satis p2 metadata endpoints
+  on 2026-08-13.'
+registries:
+- registry: npm
+  scope: '@newfold'
+  url: https://www.npmjs.com/org/newfold
+- registry: composer
+  name: Newfold Satis
+  url: https://newfold-labs.github.io/satis/
+  metadata_url: https://newfold-labs.github.io/satis/p2/%package%.json
+  package_count: 56
+  note: First-party Composer repository. Brand plugins consume the newfold-labs/wp-module-*
+    fleet from here rather than from Packagist.
+packages:
+- language: javascript
+  registry: npm
+  name: '@newfold/wp-mcp-connector'
+  url: https://www.npmjs.com/package/@newfold/wp-mcp-connector
+  install: npx -y @newfold/wp-mcp-connector
+  official: true
+  version: 1.0.1
+  published: '2026-05-04'
+  license: GPL-3.0
+  description: Connects stdio-based MCP clients (Claude Desktop, Cursor) to the WordPress
+    MCP HTTP endpoint, with OAuth 2.1 + PKCE, JWT, and application-password auth.
+  bin: wp-mcp-connector
+- language: javascript
+  registry: npm
+  name: '@newfold/huapi-js'
+  url: https://www.npmjs.com/package/@newfold/huapi-js
+  install: npm install @newfold/huapi-js
+  official: true
+  version: 2.2038.0
+  published: '2026-08-13'
+  description: Generated React Query client for HUAPI, Newfold's hosting control-plane
+    API. Built with Orval from an openapi.json the package README says is pulled from
+    an internal beta server over VPN.
+  note: 389 published versions; the most actively released Newfold package on npm.
+    The spec it is generated from is not public.
+- language: javascript
+  registry: npm
+  name: '@newfold/ui-component-library'
+  url: https://www.npmjs.com/package/@newfold/ui-component-library
+  install: npm install @newfold/ui-component-library
+  official: true
+  version: 2.1.1
+  published: '2025-09-29'
+  description: React UI component library by Newfold Digital.
+  repository: https://github.com/newfold-labs/npm-ui-component-library
+- language: javascript
+  registry: npm
+  name: '@newfold/wp-module-runtime'
+  url: https://www.npmjs.com/package/@newfold/wp-module-runtime
+  install: npm install @newfold/wp-module-runtime
+  official: true
+  version: 1.2.2
+  published: '2026-02-10'
+  description: Runtime for Newfold WP modules and plugins.
+  repository: https://github.com/newfold-labs/wp-module-runtime
+- language: javascript
+  registry: npm
+  name: '@newfold/wp-module-ai-chat'
+  url: https://www.npmjs.com/package/@newfold/wp-module-ai-chat
+  install: npm install @newfold/wp-module-ai-chat
+  official: true
+  version: 1.1.8
+  published: '2026-07-28'
+  description: Reusable AI Chat core for WordPress modules.
+- language: javascript
+  registry: npm
+  name: '@newfold/wp-module-facebook'
+  url: https://www.npmjs.com/package/@newfold/wp-module-facebook
+  install: npm install @newfold/wp-module-facebook
+  official: true
+  version: 1.3.3
+  published: '2026-02-07'
+  description: Connects to a customer Facebook profile and fetches data.
+- language: javascript
+  registry: npm
+  name: '@newfold/wp-module-ecommerce'
+  url: https://www.npmjs.com/package/@newfold/wp-module-ecommerce
+  install: npm install @newfold/wp-module-ecommerce
+  official: true
+  version: 1.10.4
+  published: '2025-10-24'
+  description: Brand-agnostic eCommerce experience for WordPress.
+  note: The GitHub source (newfold-labs/wp-module-ecommerce) is at 2.3.9; the public
+    npm release trails it by a major version.
+- language: javascript
+  registry: npm
+  name: '@newfold/js-utility-ui-analytics'
+  url: https://www.npmjs.com/package/@newfold/js-utility-ui-analytics
+  install: npm install @newfold/js-utility-ui-analytics
+  official: true
+  version: 1.4.0
+  published: '2025-04-14'
+  description: Library for tracking analytics events in WordPress admin UIs.
+- language: javascript
+  registry: npm
+  name: '@newfold/tokens'
+  url: https://www.npmjs.com/package/@newfold/tokens
+  install: npm install @newfold/tokens
+  official: true
+  version: 1.4.6-alpha.1
+  published: '2024-10-16'
+  description: Newfold design tokens.
+  note: Last release is an alpha from 2024; stale relative to the rest of the scope.
+- language: javascript
+  registry: npm
+  name: '@newfold/mfe-provider'
+  url: https://www.npmjs.com/package/@newfold/mfe-provider
+  install: npm install @newfold/mfe-provider
+  official: true
+  version: 0.2.6
+  published: '2022-06-23'
+  description: React micro-frontend provider for the Jarvis platform.
+  note: Dormant since 2022.
+- language: javascript
+  registry: npm
+  name: '@newfold/huapi-axios'
+  url: https://www.npmjs.com/package/@newfold/huapi-axios
+  install: npm install @newfold/huapi-axios
+  official: true
+  version: 0.0.1
+  published: '2022-04-11'
+  description: Axios OpenAPI client for HUAPI.
+  note: Superseded by @newfold/huapi-js; single 0.0.1 release from 2022.
+- language: php
+  registry: composer
+  name: newfold-labs/wp-module-mcp
+  url: https://newfold-labs.github.io/satis/p2/newfold-labs/wp-module-mcp.json
+  install: composer require newfold-labs/wp-module-mcp
+  official: true
+  version: 1.7.10
+  published: '2026-08-13'
+  license: GPL-2.0-or-later
+  description: Exposes WordPress functionality through the Model Context Protocol.
+  repository: https://github.com/newfold-labs/wp-module-mcp
+  note: 'Satis metadata reports the oldest tagged release (1.0.0, 2025-10-25) first;
+    the 1.7.10 / 2026-08-13 figure here is the current GitHub release. Not on Packagist.'
+- language: php
+  registry: composer
+  name: newfold-labs/wp-module-data
+  url: https://newfold-labs.github.io/satis/p2/newfold-labs/wp-module-data.json
+  install: composer require newfold-labs/wp-module-data
+  official: true
+  version: null
+  published: null
+  description: Module connecting a WordPress site to the Hiive platform API.
+  repository: https://github.com/newfold-labs/wp-module-data
+  note: Satis p2 answered with the 0.1 (2020-08-31) Endurance-era entry; the repo is
+    pushed daily. Current release version not readable from the registry metadata,
+    recorded as null rather than guessed.
+- language: php
+  registry: composer
+  name: newfold-labs/wp-plugin-bluehost
+  url: https://newfold-labs.github.io/satis/p2/newfold-labs/wp-plugin-bluehost.json
+  install: composer require newfold-labs/wp-plugin-bluehost
+  official: true
+  version: 4.18.2
+  published: '2026-08-13'
+  description: WordPress plugin integrating a site with the Bluehost control panel.
+  repository: https://github.com/newfold-labs/wp-plugin-bluehost
+  note: Version/date read from GitHub Releases; the Satis p2 document lists 4.0.0 (2024-12-20)
+    as its newest tagged entry.
+- language: php
+  registry: composer
+  name: newfold-labs/container
+  url: https://newfold-labs.github.io/satis/p2/newfold-labs/container.json
+  install: composer require newfold-labs/container
+  official: true
+  version: '1.0'
+  published: '2020-03-22'
+  description: Lightweight PSR-11 dependency injection container.
+- language: php
+  registry: composer
+  name: newfold-labs/wp-php-standards
+  url: https://newfold-labs.github.io/satis/p2/newfold-labs/wp-php-standards.json
+  install: composer require --dev newfold-labs/wp-php-standards
+  official: true
+  version: '1.2'
+  published: '2023-01-04'
+  description: PHP CodeSniffer standards for Newfold/Bluehost WordPress projects.
+- language: php
+  registry: wp-cli
+  name: bluehost/newfold-wp-cli
+  url: https://github.com/newfold-labs/newfold-wp-cli
+  install: wp package install bluehost/newfold-wp-cli
+  official: true
+  version: null
+  published: null
+  description: Zero-configuration WordPress scaffolding tool built as a WP-CLI package.
+  note: Distributed as a WP-CLI package from the GitHub repo, not from a versioned
+    registry, so there is no metadata endpoint to read a version from. Recorded as
+    null, checked.
+squatted:
+- registry: packagist
+  name: newfold-labs/wp-module-staging
+  url: https://packagist.org/packages/newfold-labs/wp-module-staging
+  official: false
+  version: 1.0.0
+  published: '2023-07-09'
+  description: 'Packagist description reads "dependency confusion poc". This is the
+    ONLY newfold-labs/* package on Packagist and it is not Newfold''s — it is a third-party
+    placeholder occupying the vendor namespace. Recorded here so a later pass does
+    not mistake it for a first-party release.'
+official_count: 17

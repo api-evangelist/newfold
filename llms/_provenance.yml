@@ -1,0 +1,15 @@
+generated: '2026-08-13'
+method: searched
+file: newfold-llms.txt
+source: https://newfold-labs.github.io/standards/llms.txt
+http_status: 200
+content_type: text/plain; charset=utf-8
+bytes: 11439
+verbatim: true
+note: 'Saved byte-for-byte as served. This is the only llms.txt any Newfold-controlled
+  host serves: it indexes the Newfold Labs engineering standards site — general, platform,
+  artifact and process standards, each entry carrying a stable document id, the artifact
+  types it applies to, and whether conformance is machine-checkable. It is a genuine,
+  well-formed llms.txt aimed at agents, but it describes how Newfold builds software,
+  not how to call a Newfold API. newfold.com/llms.txt returns 404 and no brand host
+  serves one.'

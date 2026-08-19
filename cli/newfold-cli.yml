@@ -1,0 +1,48 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/newfold-labs/newfold-wp-cli
+clis:
+- name: newfold-wp-cli
+  type: wp-cli-package
+  description: Zero-configuration WordPress scaffolding tool built as a WP-CLI package,
+    used to scaffold Newfold plugins, themes and modules from templates.
+  install:
+  - requires: WP-CLI (https://wp-cli.org/#installing)
+  - command: wp package install bluehost/newfold-wp-cli
+  repository: https://github.com/newfold-labs/newfold-wp-cli
+  commands:
+  - command: wp newfold init
+    description: Create a project-level configuration file (optional; removes prompts
+      from later commands).
+  - command: wp newfold make <name>
+    description: Scaffold a new template — plugin, theme, module.
+  - command: wp newfold template list
+    description: List available templates.
+  - command: wp newfold --help
+    description: Self-documenting help; every command accepts --help.
+  docs_note: All commands are self-documented by the tool; there is no separate reference
+    page. Upstream behaviour is documented in wp-forge/wp-scaffolding-tool.
+  official: true
+  last_pushed: '2026-06-16'
+- name: wp-mcp-connector
+  type: node-cli
+  description: stdio bridge that connects desktop MCP clients (Claude Desktop, Cursor)
+    to a WordPress site's MCP HTTP endpoint. Runs as a long-lived process for the life
+    of the client session.
+  install:
+  - command: npm install @newfold/wp-mcp-connector
+  - command: npx -y @newfold/wp-mcp-connector
+  binary: wp-mcp-connector
+  package: https://www.npmjs.com/package/@newfold/wp-mcp-connector
+  version: 1.0.1
+  published: '2026-05-04'
+  configuration: environment variables only (WP_API_URL required; OAUTH_ENABLED, JWT_TOKEN,
+    WP_API_USERNAME/WP_API_PASSWORD, WOO_CUSTOMER_KEY/SECRET, CUSTOM_HEADERS, LOG_LEVEL,
+    …). See authentication/newfold-authentication.yml for the full auth resolution
+    order.
+  programmatic: 'Also importable as a library — startBridge, readSettings, logger,
+    plus lower-level primitives (OAuth21Provider, sendWordPressRequest, detectTransport,
+    createSessionContext).'
+  official: true
+  license: GPL-3.0
+cli_count: 2

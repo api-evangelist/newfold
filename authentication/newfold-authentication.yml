@@ -1,0 +1,82 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/newfold-labs/wp-module-mcp/blob/main/docs/api.md
+docs: https://www.npmjs.com/package/@newfold/wp-mcp-connector
+note: 'Derived from first-party source and docs rather than from an OpenAPI — Newfold
+  publishes no public OpenAPI, so there are no securitySchemes to read. Everything
+  below is stated by Newfold in its own GPL source or package README.'
+apis:
+- api: newfold:blu-mcp
+  surface: https://{site}/wp-json/blu/mcp
+  schemes:
+  - id: wordpress-capability
+    type: session
+    detail: 'Server side, the transport permission callback allows the request outright
+      when the caller is a logged-in WordPress user holding the manage_options capability.
+      This is the admin-in-browser path.'
+    source: includes/Validation/McpValidation.php
+  - id: hiive-jwt
+    type: http
+    scheme: bearer
+    bearer_format: JWT
+    algorithm: RS256
+    detail: 'Otherwise a Bearer JWT is required in the Authorization header. Signatures
+      are verified with firebase/php-jwt against public keys fetched from the Hiive
+      CDN, so the issuer is Newfold''s own platform rather than the site.'
+    key_source: Hiive CDN public keys
+  - id: application-password
+    type: http
+    scheme: basic
+    detail: 'WordPress Application Passwords (Authorization: Basic) work when the request
+      authenticates as an administrator before the MCP permission callback runs. Newfold
+      documents this as the local-testing path and its CI evals provision one automatically
+      via wp-env + WP-CLI.'
+  - id: oauth21
+    type: oauth2
+    flow: authorization_code
+    detail: 'Client side, @newfold/wp-mcp-connector implements OAuth 2.1 against the
+      site. PKCE (S256) is always on for the authorization-code flow. Protected-resource
+      metadata (RFC 9728) is discovered first, falling back to authorization-server
+      metadata (RFC 8414) and then an unauthenticated probe of the WWW-Authenticate
+      header. Dynamic client registration (RFC 7591) runs when no client id is supplied
+      and the server advertises a registration endpoint. Resource indicators (RFC 8707)
+      are sent unless disabled.'
+    default_scopes: [read, write]
+    legacy_flow: implicit (OAUTH_FLOW_TYPE=implicit, for older sites)
+    token_storage: '~/.newfold/wp-mcp-connector/v<version>/, file mode 0600, isolated
+      per site by MD5 of the site URL; a lockfile coordinates concurrent connector
+      instances so only one opens a browser.'
+  - id: woocommerce-keys
+    type: apiKey
+    detail: WooCommerce report tools (wc_reports_*) swap to WOO_CUSTOMER_KEY / WOO_CUSTOMER_SECRET
+      instead of the primary basic-auth credentials when invoked.
+  - id: custom-headers
+    type: apiKey
+    in: header
+    detail: When CUSTOM_HEADERS is the only auth source the connector forwards those
+      headers verbatim and sends no Authorization header, which is the escape hatch
+      for API-key setups.
+- api: newfold:hiive
+  surface: https://hiive.cloud/api
+  schemes:
+  - id: hiive-site-token
+    type: http
+    scheme: bearer
+    detail: 'The wp-module-data connection exchanges a site token during the nfd-hiive-verify
+      handshake and sends it on subsequent requests to sites/v1/events and sites/v2/events.
+      Tokens are issued to the site by Newfold; there is no public self-service credential
+      issuance and no documented developer onboarding for this API.'
+    source: includes/HiiveConnection.php
+- api: newfold:huapi
+  surface: not published
+  schemes: []
+  note: 'The generated client (@newfold/huapi-js) carries no auth configuration of
+    its own — callers supply an axios instance. Newfold publishes no public auth documentation
+    for HUAPI.'
+gaps:
+- No public OAuth scope reference. The connector defaults to "read,write" and the actual
+  scope vocabulary is whatever each WordPress site's OAuth plugin advertises, so there
+  is nothing provider-published to record in scopes/.
+- No /.well-known/oauth-authorization-server or /.well-known/oauth-protected-resource
+  is served by any Newfold-controlled host; discovery happens against the customer's
+  own site.
