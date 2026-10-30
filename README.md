@@ -64,6 +64,120 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Newfold is a company surfaced as a portfolio company of norwest-venture-partners and added to the API Evangelist network as a stub for enrichment. Sector: unknown. This profile is a lead awaiting the enrichment pipeline.
+Newfold Digital is a web presence and technology solutions company serving small and medium businesses worldwide with domain registration, web hosting, website building, e-commerce, security, and digital marketing. It was formed in 2021 from the merger of Web.com Group and Endurance International Group and operates a portfolio of consumer and reseller brands including Bluehost, HostGator, Network Solutions, Register.com, Web.com, and Domain.com. The corporate site newfold.com is an investor and company presence rather than a unified developer portal, and it sits behind a Cloudflare interactive challenge. The company's real public developer surface is Newfold Labs (github.com/newfold-labs), an 85-repository engineering org that ships the brand WordPress plugins, a Composer module fleet distributed from its own Satis registry, public npm packages under the @newfold scope, a published engineering standards site with an llms.txt, and an MCP server module that exposes WordPress abilities to AI assistants from each customer site.
 
-Backed by: norwest-venture-partners — https://newfold.com
+**Areas:** Company · Web Hosting · Domains · Web Presence · Website Builder · Digital Marketing · Small Business · WordPress · Open Source · MCP · E-Commerce
+
+## Newfold on APIs.io
+
+Everything profiled for Newfold is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/newfold/](https://apis.io/providers/newfold/)** — or go straight to one of the APIs or properties below.
+
+### APIs (3)
+
+- [Newfold BLU MCP Server (WordPress)](https://apis.io/apis/newfold/blu-mcp/) — The Newfold Labs WordPress MCP module (wp-module-mcp) registers an MCP server, id blu-mcp, on the WordPress REST route /wp-json/blu/mcp of every site…
+- [Hiive Platform API](https://apis.io/apis/newfold/hiive/) — Hiive is Newfold's site-connection platform API. The GPL-licensed Newfold data module (wp-module-data), installed on every site running a Newfold brand…
+- [HUAPI (Hosting Unified API)](https://apis.io/apis/newfold/huapi/) — HUAPI is Newfold's internal hosting control-plane API, versioned under /v1, covering account, hosting, sites, domains, addons (backup, CodeGuard, SiteLock,…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Newfold BLU MCP Server](https://apis.io/servers/newfold/newfold-blu-mcp-server/)
+
+#### JSON Schema (1)
+
+The data models the API reads and writes.
+
+- [Newfold Labs standards document front matter](https://apis.io/schemas/newfold/newfold-standards-frontmatter.schema/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Newfold Authentication](https://apis.io/security/newfold/newfold-authentication/)
+- [Newfold Domain Security](https://apis.io/security/newfold/newfold-domain-security/)
+- [Newfold Vulnerability Disclosure](https://apis.io/security/newfold/newfold-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Newfold Plans Pricing](https://apis.io/plans/newfold/newfold-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Newfold Rate Limits](https://apis.io/rate-limits/newfold/newfold-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://newfold.com)
+- [Documentation](https://newfold-labs.github.io/standards/)
+- [Getting started](https://github.com/newfold-labs/wp-module-mcp/blob/main/docs/getting-started.md)
+- [API reference](https://github.com/newfold-labs/wp-module-mcp/blob/main/docs/api.md)
+- [Support](https://github.com/newfold-labs/wp-module-mcp/issues)
+- [Blog](https://newfold.com/newsroom)
+- [Security](https://newfold.com/disclosure)
+- [Compliance](https://newfold.com/privacy-center/information-security-policy)
+- [Privacy policy](https://newfold.com/privacy-center/privacy)
+- [GitHub](https://github.com/newfold-labs)
+
+## API Evangelist rating
+
+**Kin Score 31.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 65.0 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 63.7 |
+| Access clarity | 18.4 |
+
+**Agent readiness 14.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | templated |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 31.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/newfold/](https://apis.io/providers/newfold/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Newfold: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/newfold/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
